@@ -38,7 +38,7 @@ def invia_telegram(messaggio):
             "chat_id": chat_id,
             "text": messaggio
         },
-        timeout=30
+        timeout=120
     )
 
     risposta.raise_for_status()
@@ -49,7 +49,7 @@ def trova_pdf():
     r = requests.get(
         URL,
         headers=HEADERS,
-        timeout=90
+        timeout=120
     )
 
     r.raise_for_status()
@@ -109,7 +109,7 @@ def cerca_codice_in_pdf(url_pdf):
     r = requests.get(
         url_pdf,
         headers=HEADERS,
-        timeout=60
+        timeout=120
     )
 
     r.raise_for_status()

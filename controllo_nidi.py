@@ -101,7 +101,6 @@ def trova_pdf():
                         )
 
     return pdf_trovati
-
 def cerca_codice_in_pdf(url_pdf):
 
     print(f"Scarico: {url_pdf}")

@@ -49,7 +49,7 @@ def trova_pdf():
     r = requests.get(
         URL,
         headers=HEADERS,
-        timeout=30
+        timeout=90
     )
 
     r.raise_for_status()

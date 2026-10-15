@@ -99,11 +99,8 @@ def trova_pdf():
                         print(
                             f"PDF trovato: {nido}"
                         )
-print(f"URL PDF: {url_pdf}")
-print(r.status_code)
-
-   
-    return pdf_trovati
+                        
+   return pdf_trovati
 
 
 def cerca_codice_in_pdf(url_pdf):

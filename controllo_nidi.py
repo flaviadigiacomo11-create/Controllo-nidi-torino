@@ -41,6 +41,7 @@ def invia_telegram(messaggio):
         timeout=120
     )
 
+    print(risposta.text)
     risposta.raise_for_status()
 
 

@@ -98,7 +98,10 @@ def trova_pdf():
                         print(
                             f"PDF trovato: {nido}"
                         )
+print(f"URL PDF: {url_pdf}")
+print(r.status_code)
 
+   
     return pdf_trovati
 
 

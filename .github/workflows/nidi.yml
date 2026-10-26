@@ -2,7 +2,7 @@ name: Controllo Nidi Torino
 
 on:
   schedule:
-    - cron: '30 12 * * 2'
+    - cron: '27 12 * * 2'
 
 
   workflow_dispatch:

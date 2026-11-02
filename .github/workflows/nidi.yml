@@ -1,41 +1,26 @@
-name: Test Connessione Comune Torino
+name: Controllo Nidi Torino
 
 on:
+  schedule:
+    - cron: '27 12 * * 2'
+
+
   workflow_dispatch:
 
 jobs:
-  test:
+  check:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Informazioni rete
-        run: |
-          echo "=== DATA ==="
-          date -u
+      - uses: actions/checkout@v4
 
-          echo "=== DNS ==="
-          getent ahosts www.comune.torino.it || true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
 
-          echo "=== IP PUBBLICO RUNNER ==="
-          curl -s --max-time 15 https://api.ipify.org
-          echo
+      - run: pip install -r requirements.txt
 
-      - name: Test HTTPS IPv4
-        run: |
-          curl -4 -v -L \
-            --connect-timeout 20 \
-            --max-time 40 \
-            -o /dev/null \
-            -w "\nHTTP STATUS: %{http_code}\nREMOTE IP: %{remote_ip}\n" \
-            "https://www.comune.torino.it/schede-informative/graduatoria-nidi-dinfanzia-comunali-convenzione-sezioni-primavera-convenzione" \
-            || true
-
-      - name: Test HTTPS IPv6
-        run: |
-          curl -6 -v -L \
-            --connect-timeout 20 \
-            --max-time 40 \
-            -o /dev/null \
-            -w "\nHTTP STATUS: %{http_code}\nREMOTE IP: %{remote_ip}\n" \
-            "https://www.comune.torino.it/schede-informative/graduatoria-nidi-dinfanzia-comunali-convenzione-sezioni-primavera-convenzione" \
-            || true
+      - run: python controllo_nidi.py
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}

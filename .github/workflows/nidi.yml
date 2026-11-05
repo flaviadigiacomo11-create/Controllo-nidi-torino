@@ -1,3 +1,12 @@
+name: Test connessione Comune
+  run: |
+    echo "TEST DNS"
+    nslookup www.comune.torino.it
+
+    echo "TEST HTTPS"
+    curl -I -v --connect-timeout 20 --max-time 30 \
+    https://www.comune.torino.it/
+    
 name: Controllo Nidi Torino
 
 on:

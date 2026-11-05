@@ -19,13 +19,17 @@ jobs:
 
       - run: pip install -r requirements.txt
 
-      - name: Test connessione Comune
+      - name: Diagnostica connessione
+        continue-on-error: true
         run: |
-          echo "===== TEST DNS ====="
-          nslookup www.comune.torino.it
+          echo "===== TEST GOOGLE ====="
+          curl -I -v --connect-timeout 15 --max-time 25 https://www.google.com/ || true
 
-          echo "===== TEST HTTPS ====="
-          curl -I -v --connect-timeout 20 --max-time 30 https://www.comune.torino.it/
+          echo "===== TEST COMUNE HTTPS ====="
+          curl -I -v --connect-timeout 15 --max-time 25 https://www.comune.torino.it/ || true
+
+          echo "===== TEST COMUNE HTTP ====="
+          curl -I -v --connect-timeout 15 --max-time 25 http://www.comune.torino.it/ || true
 
       - run: python controllo_nidi.py
         env:

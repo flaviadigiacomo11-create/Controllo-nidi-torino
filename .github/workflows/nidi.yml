@@ -1,11 +1,17 @@
 name: Test connessione Comune
-  run: |
-    echo "TEST DNS"
-    nslookup www.comune.torino.it
+        run: |
+          echo "TEST DNS"
+          nslookup www.comune.torino.it
 
-    echo "TEST HTTPS"
-    curl -I -v --connect-timeout 20 --max-time 30 \
-    https://www.comune.torino.it/
+          echo "TEST HTTPS"
+          curl -I -v --connect-timeout 20 --max-time 30 \
+          https://www.comune.torino.it/
+
+      - name: Run python controllo_nidi.py
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python controllo_nidi.py
     
 name: Controllo Nidi Torino
 
